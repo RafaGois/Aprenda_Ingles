@@ -1,5 +1,6 @@
 package com.example.aprendaingles.fragments;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.aprendaingles.R;
 
@@ -15,7 +17,10 @@ import com.example.aprendaingles.R;
  * Use the {@link NumerosFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NumerosFragment extends Fragment {
+public class NumerosFragment extends Fragment implements View.OnClickListener{
+
+    ImageView imgUm,imgDois,imgTres,imgQuatro,imgCinco,imgSeis;
+    MediaPlayer mediaPlayer;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +66,69 @@ public class NumerosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_numeros, container, false);
+        View view = inflater.inflate(R.layout.fragment_numeros, container, false);
+
+        imgUm = view.findViewById(R.id.botaoUm);
+        imgDois = view.findViewById(R.id.botaoDois);
+        imgTres = view.findViewById(R.id.botaoTres);
+        imgQuatro = view.findViewById(R.id.botaoQuatro);
+        imgCinco = view.findViewById(R.id.botaoCinco);
+        imgSeis = view.findViewById(R.id.botaoSeis);
+
+        imgUm.setOnClickListener(this);
+        imgDois.setOnClickListener(this);
+        imgTres.setOnClickListener(this);
+        imgQuatro.setOnClickListener(this);
+        imgCinco.setOnClickListener(this);
+        imgSeis.setOnClickListener(this);
+
+        return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+
+
+        switch (view.getId()) {
+            case R.id.botaoUm:
+                mediaPlayer = MediaPlayer.create(getActivity(),R.raw.one);
+                reproduz();
+                break;
+            case R.id.botaoDois:
+                mediaPlayer = MediaPlayer.create(getActivity(),R.raw.two);
+                reproduz();
+                break;
+            case R.id.botaoTres:
+                mediaPlayer = MediaPlayer.create(getActivity(),R.raw.three);
+                reproduz();
+                break;
+            case R.id.botaoQuatro:
+                mediaPlayer = MediaPlayer.create(getActivity(),R.raw.four);
+                reproduz();
+                break;
+            case R.id.botaoCinco:
+                mediaPlayer = MediaPlayer.create(getActivity(),R.raw.five);
+                reproduz();
+                break;
+            case R.id.botaoSeis:
+                mediaPlayer = MediaPlayer.create(getActivity(),R.raw.six);
+                reproduz();
+                break;
+
+        }
+    }
+
+    private void reproduz() {
+
+        if (mediaPlayer != null) {
+            mediaPlayer.start();
+
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    mediaPlayer.release();
+                }
+            });
+        }
     }
 }
